@@ -50,13 +50,15 @@ if uploaded_file is not None:
     st.write("PDF uploaded successfully")
     
 ## THE 4 BUTTONS OF THE APPLICATION:    
-submit1 = st.button("Tell me about the Resume")
+submit1 = st.button("Review My Resume")
 
 submit2 = st.button("How can I improvise my skills")
 
 submit3 = st.button("Percentage Match")
 
-submit4 = st.button("What are the Keywords that are Missing")
+submit4 = st.button("What are the Keywords that are Missing?")
+
+submit5 = st.button("Technical Skills")
 
 # for the above buttons, we have an example input prompt:
 input_prompt1 = """
@@ -92,11 +94,17 @@ Provide the candidate with the missing keywords and how they can improvise their
 align with the job description.
 Jot down the missing keywords along with reasons why they are important for the role in a list manner."""
 
+input_prompt5 = """
+You are a skilled ATS (Applicant Tracking System) scanner with a deep understanding of Data Science and 
+Full Stack Web Development roles. Your task is to filter out the technical skills from the resume and
+then mention them in bullet points in the output. There should be no other information in the output. 
+"""
+
 if submit1:
     if uploaded_file is not None:
         pdf_content = input_pdf_setup(uploaded_file)
         response = get_gemini_response(input_prompt1, pdf_content, input_text)
-        st.subheader("The Response is")
+        st.subheader("Recommendation by the A.I.")
         st.write(response)
     else:
         st.write("Please upload the Resume PDF")
@@ -105,7 +113,7 @@ elif submit2:
     if uploaded_file is not None:
         pdf_content = input_pdf_setup(uploaded_file)
         response = get_gemini_response(input_prompt2, pdf_content, input_text)
-        st.subheader("The Response is")
+        st.subheader("Recommendation by the A.I.")
         st.write(response)
     else:
         st.write("Please upload the Resume PDF")
@@ -114,7 +122,7 @@ elif submit3:
     if uploaded_file is not None:
         pdf_content = input_pdf_setup(uploaded_file)
         response = get_gemini_response(input_prompt3, pdf_content, input_text)
-        st.subheader("The Response is")
+        st.subheader("Recommendation by the A.I.")
         st.write(response)
     else:
         st.write("Please upload the Resume PDF")
@@ -123,7 +131,16 @@ elif submit4:
     if uploaded_file is not None:
         pdf_content = input_pdf_setup(uploaded_file)
         response = get_gemini_response(input_prompt4, pdf_content, input_text)
-        st.subheader("The Response is")
+        st.subheader("Recommendation by the A.I.")
+        st.write(response)
+    else:
+        st.write("Please upload the Resume PDF")
+
+elif submit5:
+    if uploaded_file is not None:
+        pdf_content = input_pdf_setup(uploaded_file)
+        response = get_gemini_response(input_prompt5, pdf_content, input_text)
+        st.subheader("Here is a list of your Technical Skills")
         st.write(response)
     else:
         st.write("Please upload the Resume PDF")
