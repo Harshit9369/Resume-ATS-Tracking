@@ -12,7 +12,7 @@ import pdf2image
 import google.generativeai as genai
 
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-
+os.environ["PATH"] += os.pathsep + "/usr/bin"
 def get_gemini_response(input, pdf_content, prompt):
     model = genai.GenerativeModel('gemini-pro-vision')
     response = model.generate_content([input, pdf_content[0], prompt])
@@ -21,7 +21,7 @@ def get_gemini_response(input, pdf_content, prompt):
 def input_pdf_setup(uploaded_file):
     # Converting the PDF to Image
     if uploaded_file is not None:
-        images = pdf2image.convert_from_bytes(uploaded_file.read())
+        images = pdf2image.convert_from_bytes(uploaded_file.read(), poppler_path="/usr/bin")
         
         first_page = images[0]
         
