@@ -67,6 +67,14 @@ whether the candidate's profile aligns with the role.
 Highlight the strengths and weaknesses of the applicant in relation to the specified job requirements. 
 """
 
+input_prompt2 = """
+You are an experienced and skilled ATS (Application Tracking System) scanner with a deep understanding of
+data science, full stack web development, devops, data analyst, and deep ATS functionality. Your task is 
+to evaluate the resume and then provide the candidate with insights on how they can improvise
+their skills according to the job description provided. Jot down bullet points on how the candidate can
+improvise their skills so that they can align with the job description.
+"""
+
 input_prompt3 = """
 You are a skilled ATS (Applicant Tracking System) scanner with a deep understanding of Data Science,
 Full Stack Web Development, Devops, Data Analyst, and deep ATS functionality, your task is to 
@@ -74,6 +82,15 @@ evaluate the resume against the provided job description. Give me the percentage
 matches the job description. First the output should come as percentage and then keywords missing and 
 last final thoughts. 
 """
+
+input_prompt4 = """
+You are a skilled ATS (Applicant Tracking System) scanner with a deep understanding of Data Science,
+Full Stack Web Development, DevOps, and Data Analyst roles. The job description has several keywords
+that are important for the role. Your task is to evaluate the resume against the provided job description
+and then provide the candidate with insights on the keywords that are missing in the resume.
+Provide the candidate with the missing keywords and how they can improvise their resume to 
+align with the job description.
+Jot down the missing keywords along with reasons why they are important for the role in a list manner."""
 
 if submit1:
     if uploaded_file is not None:
@@ -83,11 +100,29 @@ if submit1:
         st.write(response)
     else:
         st.write("Please upload the Resume PDF")
+        
+elif submit2:
+    if uploaded_file is not None:
+        pdf_content = input_pdf_setup(uploaded_file)
+        response = get_gemini_response(input_prompt2, pdf_content, input_text)
+        st.subheader("The Response is")
+        st.write(response)
+    else:
+        st.write("Please upload the Resume PDF")
 
 elif submit3:
     if uploaded_file is not None:
         pdf_content = input_pdf_setup(uploaded_file)
         response = get_gemini_response(input_prompt3, pdf_content, input_text)
+        st.subheader("The Response is")
+        st.write(response)
+    else:
+        st.write("Please upload the Resume PDF")
+        
+elif submit4:
+    if uploaded_file is not None:
+        pdf_content = input_pdf_setup(uploaded_file)
+        response = get_gemini_response(input_prompt4, pdf_content, input_text)
         st.subheader("The Response is")
         st.write(response)
     else:
